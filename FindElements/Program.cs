@@ -31,14 +31,16 @@ namespace FindElements
                     Dictionary<string, string> keyValueDictionary = new Dictionary<string, string>();
                     char[] delimiterChars = {' ', ',', '.', ':', '\t'};
                     string[] keyValueWords = args[i].Split(delimiterChars);
+                    List<string> list = new List<string>(keyValueWords);
+                    if (list.Count % 2 == 0)
+                    {
+                        list.Add ("<null>");
+                    }
+                    keyValueWords = list.ToArray();
                     for (int j = 1; j < keyValueWords.Length; j=j+2)
                     {
                         keyValueDictionary.Add(keyValueWords[j], keyValueWords[j + 1]);
                         Console.WriteLine("<{0}> {1}", keyValueWords[j], keyValueWords[j + 1]);
-                    }
-                    if (keyValueWords.Length % 2 == 1)
-                    {
-                        Console.Write("<null>");
                     }
                     continue;
                 }
