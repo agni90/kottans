@@ -5,59 +5,73 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Media;
+using System.Runtime.Remoting.Messaging;
+using System.Security.Cryptography.X509Certificates;
 
 namespace FindElements
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            string[] expectedValues = {"", "/?", "/help", "-help", "-k key value", "-ping", "-print Inga"};
-            for (int i = 0; i < args.Length; i++)
+            var checker = new Checkers();
+            var inputParams = args;
+            while (true)
             {
-                if (args[i].StartsWith("-print "))
+                bool isChecked = false;
+                for (int i = 0; i < inputParams.Length; i++)
                 {
-                    Console.WriteLine(args[i].Substring(6));
-                    continue;
-                }
-                if (args[i].Equals(String.Empty) || args[i].StartsWith("/?") || args[i].StartsWith("/help") ||
-                    args[i].StartsWith("-help"))
-                {
-                    Console.WriteLine("<{0}> {1}", args[i], "I can help you!");
-                    continue;
-                }
-                if (args[i].StartsWith("-k"))
-                {
-                    Dictionary<string, string> keyValueDictionary = new Dictionary<string, string>();
-                    char[] delimiterChars = {' ', ',', '.', ':', '\t'};
-                    string[] keyValueWords = args[i].Split(delimiterChars);
-                    List<string> list = new List<string>(keyValueWords);
-                    if (list.Count % 2 == 0)
-                    {
-                        list.Add ("<null>");
-                    }
-                    keyValueWords = list.ToArray();
-                    for (int j = 1; j < keyValueWords.Length; j=j+2)
-                    {
-                        keyValueDictionary.Add(keyValueWords[j], keyValueWords[j + 1]);
-                        Console.WriteLine("<{0}> {1}", keyValueWords[j], keyValueWords[j + 1]);
-                    }
-                    continue;
+                    isChecked = checker.CheckForPrint(inputParams[i]) ? true : false;
+                    isChecked = isChecked || checker.CheckForHelp(inputParams[i]) ? true : false;
+                    isChecked = isChecked || checker.CheckForK(inputParams[i]) ? true : false;
+                    isChecked = isChecked || checker.CheckForPing(inputParams[i]) ? true : false;
+                    isChecked = isChecked || checker.CheckIsCommandCorrect(inputParams[i]) ? true : false;
                 }
 
-                switch (args[i])
-                {
-                    case "-ping":
-                        Console.WriteLine("Pinging...");
-                        break;
-                    default:
-                        Console.WriteLine("Command <" + args[i] + "> is not supported");
-                        break;
-                }
-
+                inputParams = Console.ReadLine().SplitInputValue();
             }
-            Console.ReadLine();
         }
     }
 
+   
+
+    public static class StringExtensions
+    {
+        public static string[] SplitInputValue(this string str)
+        {
+            var output = new List<string>();
+            var symbols = str.ToCharArray();
+            var builder = new StringBuilder();
+            for (int i = 0; i < symbols.Length; i++)
+            {
+                // check for ' " ' symbol
+                if (symbols[i] == '"')
+                {
+                    i++;
+                    while (symbols[i] != '"')
+                    {
+                        builder.Append(symbols[i]);
+                        i++;
+                        if (i >= symbols.Length) break;
+                    }
+                }
+                else
+                {
+                    while (symbols[i] != ' ')
+                    {
+                        builder.Append(symbols[i]);
+                        i++;
+                        if (i >= symbols.Length) break;
+                    }
+                }
+
+
+                output.Add(builder.ToString());
+                builder.Clear();
+            }
+            return output.ToArray();
+        }
+    }
 }
+
+

@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindElements", "FindElements\FindElements.csproj", "{5D27BD7C-8D1A-4824-B26D-9E5A4375E3BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindElementsTests", "FindElementsTests\FindElementsTests.csproj", "{0E7B99B3-EE5C-45DE-AAAB-E339C8F23B39}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{5D27BD7C-8D1A-4824-B26D-9E5A4375E3BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D27BD7C-8D1A-4824-B26D-9E5A4375E3BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D27BD7C-8D1A-4824-B26D-9E5A4375E3BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E7B99B3-EE5C-45DE-AAAB-E339C8F23B39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E7B99B3-EE5C-45DE-AAAB-E339C8F23B39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E7B99B3-EE5C-45DE-AAAB-E339C8F23B39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E7B99B3-EE5C-45DE-AAAB-E339C8F23B39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
