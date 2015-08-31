@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+using System.Net.Mime;
 using System.Text;
-using System.Threading.Tasks;
-using System.Media;
-using System.Runtime.Remoting.Messaging;
-using System.Security.Cryptography.X509Certificates;
 
 namespace FindElements
 {
@@ -14,26 +9,32 @@ namespace FindElements
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine("Hi, welcome to my test task");
             var checker = new Checkers();
             var inputParams = args;
             while (true)
             {
+
                 bool isChecked = false;
                 for (int i = 0; i < inputParams.Length; i++)
                 {
+                    if (inputParams[i].Equals("quit"))
+                    {
+                        Console.WriteLine("Goodbye");
+                        return;
+                    }
                     isChecked = checker.CheckForPrint(inputParams[i]) ? true : false;
                     isChecked = isChecked || checker.CheckForHelp(inputParams[i]) ? true : false;
                     isChecked = isChecked || checker.CheckForK(inputParams[i]) ? true : false;
                     isChecked = isChecked || checker.CheckForPing(inputParams[i]) ? true : false;
                     isChecked = isChecked || checker.CheckIsCommandCorrect(inputParams[i]) ? true : false;
+
                 }
 
                 inputParams = Console.ReadLine().SplitInputValue();
             }
         }
     }
-
-   
 
     public static class StringExtensions
     {

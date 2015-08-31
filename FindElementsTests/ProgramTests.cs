@@ -1,5 +1,4 @@
-﻿using System;
-using FindElements;
+﻿using FindElements;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 
