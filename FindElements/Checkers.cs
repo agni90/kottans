@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FindElements
 {
@@ -8,10 +9,26 @@ namespace FindElements
         static string[] expectedValues = { "", "/?", "/help", "-help", "-k key value", "-ping", "-print Inga" };
         public Boolean CheckForPrint(string print)
         {
-            if (print.StartsWith("-print "))
+            if (!print.StartsWith("-print"))
             {
-                Console.WriteLine(print.Substring(6));
+                return false;
+            }
+            var parsedMessage = print.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries);
+            if (parsedMessage.Length > 1)
+            {
+                for (var i = 1; i < parsedMessage.Length; i++)
+                {
+                    Console.WriteLine(parsedMessage[i]);
+                }
                 return true;
+            }
+            else
+            {
+                if (parsedMessage[0] == "-print")
+                {
+                    Console.WriteLine("Message is empty");
+                    return true;
+                }
             }
             return false;
         }
@@ -21,7 +38,9 @@ namespace FindElements
             if (help.Equals(String.Empty) || help.Equals("/?") || help.Equals("/help") ||
                 help.Equals("-help"))
             {
-                Console.WriteLine("<{0}> {1}", help, "I can help you!");
+                Console.WriteLine("<{0}> {1}", help, "\nSupported commands:\n\" \", /?, /help, -help - вызов помощи"+
+                    "\n\"-print <message>\" - печатает сообщение <message>\n-ping - издает звуковой сигнал"+
+                    "\n\"-key value\" - выводит на экран таблицу ключ-значение\n-quit - выход с программы");
                 return true;
             }
             return false;
@@ -54,6 +73,7 @@ namespace FindElements
         {
             if (ping.Equals("-ping"))
             {
+                System.Media.SystemSounds.Beep.Play();
                 Console.WriteLine("Pinging...");
                 return true;
             }

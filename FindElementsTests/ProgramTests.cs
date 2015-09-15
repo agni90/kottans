@@ -26,7 +26,7 @@ namespace FindElementsTests
         [TestMethod]
         public void CheckForPrint_PassIncorrectValue_Success()
         {
-            string value = "-printt hihi";
+            string value = "-printhihi";
             bool expectedResult = false;
             var result = classUnderTest.CheckForPrint(value);
             Assert.AreEqual(result, expectedResult);
