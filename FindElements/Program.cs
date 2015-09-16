@@ -33,10 +33,9 @@ namespace FindElements
             var inputParams = args;
             while (true)
             {
-
-                bool isChecked = false;
                 for (int i = 0; i < inputParams.Length; i++)
                 {
+                    bool isChecked = false;
                     if (inputParams[i].Equals("-quit"))
                     {
                         Console.WriteLine("Goodbye");
@@ -78,11 +77,14 @@ namespace FindElements
                 }
                 else
                 {
-                    while (symbols[i] != ' ')
+                    if (symbols[i] == ' ')
                     {
-                        builder.Append(symbols[i]);
-                        i++;
-                        if (i >= symbols.Length) break;
+                        while (symbols[i] != ' ')
+                        {
+                            builder.Append(symbols[i]);
+                            i++;
+                            if (i >= symbols.Length) break;
+                        }
                     }
                 }
 
